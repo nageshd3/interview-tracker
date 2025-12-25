@@ -1,0 +1,25 @@
+<ng-container *ngIf="interview; else notFound">
+
+  <h2>{{ interview.company }}</h2>
+
+  <p><strong>Role:</strong> {{ interview.role }}</p>
+  <p><strong>Date:</strong> {{ interview.date }}</p>
+
+  <p *ngIf="interview.feedback">
+    <strong>Feedback:</strong> {{ interview.feedback }}
+  </p>
+
+  <button mat-stroked-button color="primary" routerLink="/interviews">
+    Back to Interviews
+  </button>
+
+</ng-container>
+
+<ng-template #notFound>
+  <h3>Interview not found</h3>
+  <p>The interview you are looking for does not exist.</p>
+
+  <button mat-raised-button color="primary" routerLink="/interviews">
+    Go to Interviews
+  </button>
+</ng-template>

@@ -1,0 +1,70 @@
+<h2>Add Interview</h2>
+
+<form [formGroup]="interviewForm" (ngSubmit)="addInterview()" aria-labelledby="add-interview-title">
+  <h3 id="add-interview-title" class="visually-hidden">
+    Add a new interview
+  </h3>
+
+  <!-- Company -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Company</mat-label>
+
+    <input matInput formControlName="company" aria-required="true" aria-describedby="company-error" />
+
+    <mat-error id="company-error" *ngIf="company?.invalid && company?.touched">
+      Company name is required and must be at least 2 characters
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Role -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Role</mat-label>
+
+    <input matInput formControlName="role" aria-required="true" aria-describedby="role-error" />
+
+    <mat-error id="role-error" *ngIf="role?.invalid && role?.touched">
+      Role is required and must be at least 2 characters
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Date -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Interview Date</mat-label>
+
+    <input matInput type="date" formControlName="date" aria-required="true" aria-describedby="date-error"
+      [min]="today" />
+
+    <mat-error id="date-error" *ngIf="(date?.invalid && date?.touched) || (date?.hasError('required'))">
+      Interview date is required
+    </mat-error>
+
+    <mat-error *ngIf="date?.hasError('pastDate')">
+      Interview date cannot be in the past
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="interviewForm.invalid || isSubmitting">
+    <ng-container *ngIf="!isSubmitting; else loading">
+      Add Interview
+    </ng-container>
+
+    <ng-template #loading>
+      <mat-spinner diameter="20"></mat-spinner>
+    </ng-template>
+    </button>
+</form>
+
+<hr />
+
+<h2>Interviews</h2>
+
+<ul>
+  <li *ngFor="let i of interviews">
+    {{ i.company }} - {{ i.role }}
+
+    <button mat-button color="warn" (click)="deleteInterview(i.id)">
+      Delete
+    </button>
+  </li>
+
+</ul>
