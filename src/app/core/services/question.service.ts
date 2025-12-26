@@ -126,9 +126,9 @@ export class QuestionService {
         },
         {
             id: 21,
-            category: 'Angular',
-            question: 'Why Reactive Forms instead of Template-driven?',
-            answer: 'Reactive Forms are more scalable, testable, and better suited for complex validation and dynamic forms.'
+            category: 'DevOps',
+            question: 'What is Continuous Deployment (CD)?',
+            answer: 'Continuous Deployment (CD) is a software release process that uses automated testing to validate if changes to a codebase are correct and stable for immediate autonomous deployment to a production environment.'
         },
         {
             id: 22,
@@ -181,9 +181,9 @@ export class QuestionService {
         },
         {
             id: 30,
-            category: 'DevOps',
-            question: 'What is Continuous Deployment (CD)?',
-            answer: 'Continuous Deployment (CD) is a software release process that uses automated testing to validate if changes to a codebase are correct and stable for immediate autonomous deployment to a production environment.'
+            category: 'RxJS',
+            question: 'What is the purpose of the pipe() method in RxJS?',
+            answer: 'The pipe() method is used to combine multiple operators into a single function that can be applied to an Observable.'
         }
     ];
 

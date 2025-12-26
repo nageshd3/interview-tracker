@@ -1,5 +1,70 @@
-<h2>Interview Overview</h2>
+<div class="dashboard-container">
 
-<p>Total Interviews: {{ total }}</p>
-<p>Completed: {{ completed }}</p>
-<p>Scheduled: {{ scheduled }}</p>
+    <!-- Summary Cards -->
+    <section class="summary-cards">
+        <mat-card class="summary-card">
+            <h3>Total Interviews</h3>
+            <p class="count">{{ total }}</p>
+        </mat-card>
+
+        <mat-card class="summary-card">
+            <h3>Completed Interviews</h3>
+            <p class="count">{{ completed.length }}</p>
+        </mat-card>
+
+        <mat-card class="summary-card">
+            <h3>Scheduled Interviews</h3>
+            <p class="count">{{ scheduled.length }}</p>
+        </mat-card>
+    </section>
+
+    <!-- Main Content -->
+    <section class="dashboard-content">
+
+        <!-- Completed Interviews -->
+        <mat-card class="content-card">
+            <h2>Completed Interviews</h2>
+
+            <ng-container *ngIf="completed.length; else noCompleted">
+                <ul class="interview-list">
+                    <li *ngFor="let interview of completed" class="clickable"
+                        tabindex="0" role="link" (keydown.enter)="null"
+                        [routerLink]="['/interviews', interview.id]">
+                        <div>
+                            <strong>{{ interview.company }}</strong> - {{ interview.role }}
+                            <div class="muted">{{ interview.date }}</div>
+                        </div>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ng-template #noCompleted>
+                <p class="muted">No completed interviews.</p>
+            </ng-template>
+        </mat-card>
+
+        <!-- Scheduled Interviews -->
+        <mat-card class="content-card">
+            <h2>Scheduled Interviews</h2>
+
+            <ng-container *ngIf="scheduled.length; else noUpcoming">
+                <ul class="interview-list">
+                    <li *ngFor="let interview of scheduled" class="clickable"
+                        tabindex="0" role="link" (keydown.enter)="null"
+                        [routerLink]="['/interviews', interview.id]">
+                        <div>
+                            <strong>{{ interview.company }}</strong> - {{ interview.role }}
+                            <div class="muted">{{ interview.date }}</div>
+                        </div>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ng-template #noUpcoming>
+                <p class="muted">No upcoming interviews.</p>
+            </ng-template>
+        </mat-card>
+
+    </section>
+
+</div>

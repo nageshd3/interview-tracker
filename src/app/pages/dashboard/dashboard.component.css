@@ -1,0 +1,84 @@
+/* Layout */
+.dashboard-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Summary Cards */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.summary-card {
+  text-align: center;
+}
+
+.summary-card h3 {
+  margin: 0;
+  font-weight: 500;
+}
+
+.count {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* Main Content */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 30px;
+}
+
+.content-card h2 {
+  margin-top: 0;
+}
+
+/* Interview List */
+.interview-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.interview-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.interview-list li:last-child {
+  border-bottom: none;
+}
+
+.muted {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.mat-mdc-card {
+    padding: 15px;
+}
+
+.interview-list li.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.interview-list li.clickable:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+}
