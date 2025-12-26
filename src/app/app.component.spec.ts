@@ -25,6 +25,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('span')?.textContent).toContain('Interview Tracker');
+    expect(compiled.querySelector('.logo-text')?.textContent).toContain('Interview Tracker');
   });
 });

@@ -1,6 +1,31 @@
-<h2>Interview Q&A</h2>
+<div class="qa-container">
 
-<div *ngFor="let q of questions">
-  <h4>{{ q.question }}</h4>
-  <p>{{ q.answer }}</p>
+  <!-- Sidebar -->
+  <aside class="qa-sidebar">
+    <h3>Categories</h3>
+
+    <mat-nav-list>
+      <a mat-list-item role="button" tabindex="0" *ngFor="let category of categories" (click)="selectCategory(category)"
+        (keydown.enter)="selectCategory(category)" [class.active]="category === selectedCategory">
+        {{ category }}
+      </a>
+    </mat-nav-list>
+  </aside>
+
+  <!-- Content -->
+  <section class="qa-content">
+    <h2>{{ selectedCategory }} Questions</h2>
+
+    <mat-card *ngFor="let q of filteredQuestions" class="qa-card">
+      <mat-card-title>{{ q.question }}</mat-card-title>
+      <mat-card-content>
+        {{ q.answer }}
+      </mat-card-content>
+    </mat-card>
+
+    <p *ngIf="filteredQuestions.length === 0">
+      No questions found.
+    </p>
+  </section>
+
 </div>

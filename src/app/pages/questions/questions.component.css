@@ -1,0 +1,28 @@
+.qa-container {
+    display: flex;
+    gap: 24px;
+}
+
+.qa-sidebar {
+    min-width: 200px;
+    width: 220px;
+    border-right: 1px solid #ddd;
+    padding-right: 16px;
+}
+
+.qa-content {
+    flex: 1;
+}
+
+.qa-card {
+    margin-bottom: 16px;
+}
+
+mat-list-item.active {
+    font-weight: 600;
+    background-color: rgba(63, 81, 181, 0.1);
+}
+
+.mat-mdc-card-title, .mat-mdc-card-subtitle {
+    padding: 16px;
+}

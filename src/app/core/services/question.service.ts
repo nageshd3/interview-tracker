@@ -24,7 +24,7 @@ export class QuestionService {
         },
         {
             id: 4,
-            category: 'Web Development',
+            category: 'HTML',
             question: 'What is the DOM?',
             answer: 'The Document Object Model (DOM) is a programming interface for web documents that represents the page so that programs can change the document structure, style, and content.'
         },
@@ -66,7 +66,7 @@ export class QuestionService {
         },
         {
             id: 11,
-            category: 'Performance',
+            category: 'Angular',
             question: 'What is lazy loading?',
             answer: 'Lazy loading is a design pattern that defers the loading of non-essential resources at page load time, instead loading them only when they are needed.'
         },
@@ -78,9 +78,9 @@ export class QuestionService {
         },
         {
             id: 13,
-            category: 'Databases',
-            question: 'What is a relational database?',
-            answer: 'A relational database is a type of database that stores data in tables with rows and columns, allowing for relationships between different data entities using keys.'
+            category: 'Angular',
+            question: 'What is change detection?',
+            answer: 'Change detection updates the view when the model changes.'
         },
         {
             id: 14,
@@ -91,7 +91,7 @@ export class QuestionService {
         {
             id: 15,
             category: 'Angular',
-            question: 'Why did you use standalone components?',
+            question: 'Why use standalone components?',
             answer: 'Standalone components reduce NgModule boilerplate, improve tree-shaking, and align with Angular’s future direction.'
         },
         {
@@ -133,8 +133,8 @@ export class QuestionService {
         {
             id: 22,
             category: 'Angular',
-            question: 'Why LocalStorage instead of a backend?',
-            answer: 'This app is designed backend-agnostic. LocalStorage simulates persistence and can easily be replaced with an API or NgRx store.'
+            question: 'Difference between template-driven and reactive forms?',
+            answer: 'Template-driven forms are easier for simple forms, while reactive forms provide more control and scalability for complex forms.'
         },
         {
             id: 23,
@@ -145,15 +145,57 @@ export class QuestionService {
         {
             id: 24,
             category: 'Angular',
-            question: 'Why Angular Material?',
+            question: 'Why use Angular Material?',
             answer: 'It provides accessible, consistent UI components and follows Material Design best practices, reducing custom CSS.'
+        },
+        {
+            id: 25,
+            category: 'RxJS',
+            question: 'What is an Observable?',
+            answer: 'An Observable represents a stream of values over time.'
+            
+        },
+        {
+            id: 26,
+            category: 'RxJS',
+            question: 'What is a Subject?',
+            answer: 'A Subject is a special type of Observable that allows multicasting to multiple observers.'
+        },
+        {
+            id: 27,
+            category: 'RxJS',
+            question: 'What is a BehaviorSubject?',
+            answer: 'A BehaviorSubject is a type of Subject that holds the current value and emits it to new subscribers.'
+        },
+        {
+            id: 28,
+            category: 'RxJS',
+            question: 'What are operators in RxJS?',
+            answer: 'Operators are functions that enable functional programming with Observables by allowing you to transform, filter, and combine streams.'
+        },
+        {
+            id: 29,
+            category: 'RxJS',
+            question: 'What is the difference between Promise and Observable?',
+            answer: 'A Promise handles a single asynchronous event, while an Observable can handle multiple events over time.'
+        },
+        {
+            id: 30,
+            category: 'DevOps',
+            question: 'What is Continuous Deployment (CD)?',
+            answer: 'Continuous Deployment (CD) is a software release process that uses automated testing to validate if changes to a codebase are correct and stable for immediate autonomous deployment to a production environment.'
         }
     ];
+
     getAll() {
-        return this.questions;
+        return [...this.questions];
     }
 
     getById(id: number) {
         return this.questions.find(q => q.id === id);
+    }
+
+    getCategories(): string[] {
+        return [...new Set(this.questions.map(q => q.category))];
     }
 }

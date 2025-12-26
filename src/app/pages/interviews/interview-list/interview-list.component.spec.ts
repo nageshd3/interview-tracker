@@ -4,6 +4,7 @@ import { InterviewService } from '../../../core/services/interview.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 
 function getFutureDate(): string {
   const date = new Date();
@@ -19,7 +20,8 @@ describe('InterviewListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         InterviewListComponent,
-        NoopAnimationsModule // avoids Material animation issues
+        NoopAnimationsModule,
+        RouterTestingModule // avoids Material animation issues
       ],
       providers: [
   InterviewService,
