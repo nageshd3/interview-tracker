@@ -4,5 +4,5 @@ export interface Interview {
   role: string;
   date: string;
   status: 'Scheduled' | 'Completed';
-  feedback?: string;
+  notes?: string;
 }

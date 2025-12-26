@@ -51,7 +51,7 @@
     <ng-template #loading>
       <mat-spinner diameter="20"></mat-spinner>
     </ng-template>
-    </button>
+  </button>
 </form>
 
 <hr />
@@ -59,12 +59,10 @@
 <h2>Interviews</h2>
 
 <ul>
-  <li *ngFor="let i of interviews">
-    {{ i.company }} - {{ i.role }}
-
-    <button mat-button color="warn" (click)="deleteInterview(i.id)">
-      Delete
-    </button>
+  <li *ngFor="let interview of interviews">
+    <a [routerLink]="['/interviews', interview.id]">
+      {{ interview.company }} - {{ interview.role }}
+    </a>
   </li>
 
 </ul>

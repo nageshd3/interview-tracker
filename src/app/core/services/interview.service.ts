@@ -4,26 +4,15 @@ import { Interview } from '../models/interview.model';
 @Injectable({ providedIn: 'root' })
 export class InterviewService {
   private storageKey = 'interviews';
-  private interviews: Interview[] = [
-    {
-      id: 1,
-      company: 'Google',
-      role: 'Frontend Engineer',
-      date: '2024-12-10',
-      status: 'Completed',
-      feedback: 'Good DS & Angular discussion'
-    },
-    {
-      id: 2,
-      company: 'Microsoft',
-      role: 'UI Developer',
-      date: '2025-01-05',
-      status: 'Scheduled'
-    }
-  ];
+  private interviews: Interview[] = [];
 
   constructor() {
     this.loadFromStorage();
+
+    // ✅ Seed data for first-time load only
+    if (this.interviews.length === 0) {
+      this.seedInitialData();
+    }
   }
 
   /* -------------------------
@@ -110,5 +99,31 @@ export class InterviewService {
     } catch (error) {
       console.error('Failed to save interviews to localStorage:', error);
     }
+  }
+
+  /* -------------------------
+     Seed Data (Private)
+  --------------------------*/
+
+  private seedInitialData(): void {
+    this.interviews = [
+      {
+        id: 1,
+        company: 'Google',
+        role: 'Frontend Engineer',
+        date: '2025-02-10',
+        status: 'Scheduled'
+      },
+      {
+        id: 2,
+        company: 'Microsoft',
+        role: 'Angular Developer',
+        date: '2025-01-05',
+        status: 'Completed',
+        notes: 'Strong RxJS and Angular fundamentals'
+      }
+    ];
+
+    this.saveToStorage();
   }
 }
