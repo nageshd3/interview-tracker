@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { MatCardModule } from "@angular/material/card";
+import { MatCardModule } from '@angular/material/card';
 
-import { Interview } from '../../core/models/interview.model';
 import { InterviewService } from '../../core/services/interview.service';
 
 @Component({
@@ -15,14 +14,11 @@ import { InterviewService } from '../../core/services/interview.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  total = 0;
-  completed: Interview[] = [];
-  scheduled: Interview[] = [];
+  private interviewService = inject(InterviewService);
 
-  constructor(service: InterviewService) {
-    const interviews = service.getAll();
-    this.total = interviews.length;
-    this.completed = interviews.filter(i => i.status === 'Completed');
-    this.scheduled = interviews.filter(i => i.status === 'Scheduled');
-  }
+  interviews = this.interviewService.getAll();
+
+  total = this.interviews.length;
+  completed = this.interviews.filter(i => i.status === 'Completed');
+  scheduled = this.interviews.filter(i => i.status === 'Scheduled');
 }

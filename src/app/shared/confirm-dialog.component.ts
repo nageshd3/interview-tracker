@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
     </mat-dialog-actions>
   `
 })
-export class ConfirmDialogComponent {
-    constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string }) { }
+export class ConfirmDialogComponent {    data = inject<{
+    message: string;
+}>(MAT_DIALOG_DATA);
+
 }

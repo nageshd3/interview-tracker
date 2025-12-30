@@ -19,6 +19,10 @@ export class InterviewService {
      Public API
   --------------------------*/
 
+  /**
+   * Retrieve all interviews.
+   * @returns Array of Interview objects.
+   */
   getAll(): Interview[] {
     return [...this.interviews];
   }
@@ -118,7 +122,7 @@ export class InterviewService {
         id: 2,
         company: 'Microsoft',
         role: 'Angular Developer',
-        date: '2025-01-05',
+        date: '2025-10-10',
         status: 'Completed',
         notes: 'Strong RxJS and Angular fundamentals'
       }

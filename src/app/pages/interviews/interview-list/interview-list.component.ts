@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -29,6 +29,11 @@ import { futureDateValidator } from '../../../core/validators/future-date.valida
   styleUrl: './interview-list.component.css'
 })
 export class InterviewListComponent {
+  private fb = inject(FormBuilder);
+  dialog = inject(MatDialog);
+  private service = inject(InterviewService);
+  private snackBar = inject(MatSnackBar);
+
   total = 0;
   completed = 0;
   scheduled = 0;
@@ -37,12 +42,9 @@ export class InterviewListComponent {
   isSubmitting = false;
   today = new Date().toISOString().split('T')[0];
 
-  constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private service: InterviewService,
-    private snackBar: MatSnackBar
-  ) {
+  constructor() {
+    const service = this.service;
+
     this.interviewForm = this.fb.group({
       company: ['', [Validators.required, Validators.minLength(2)]],
       role: ['', [Validators.required, Validators.minLength(2)]],

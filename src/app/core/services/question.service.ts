@@ -153,7 +153,6 @@ export class QuestionService {
             category: 'RxJS',
             question: 'What is an Observable?',
             answer: 'An Observable represents a stream of values over time.'
-            
         },
         {
             id: 26,
@@ -195,6 +194,10 @@ export class QuestionService {
         return this.questions.find(q => q.id === id);
     }
 
+    /**
+     * Retrieve all unique question categories.
+     * @returns Array of unique category strings.
+     */
     getCategories(): string[] {
         return [...new Set(this.questions.map(q => q.category))];
     }

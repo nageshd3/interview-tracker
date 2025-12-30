@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
@@ -10,18 +10,18 @@ import { InterviewService } from '../../../core/services/interview.service';
 @Component({
   selector: 'app-interview-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, MatButtonModule],
   templateUrl: './interview-detail.component.html',
   styleUrl: './interview-detail.component.css'
 })
 export class InterviewDetailComponent {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private service = inject(InterviewService);
+
   interview: Interview | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: InterviewService
-  ) {
+  constructor() {
     const idParam = this.route.snapshot.paramMap.get('id');
 
     if (!idParam) {

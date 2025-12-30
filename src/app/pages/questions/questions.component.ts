@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
@@ -19,7 +19,9 @@ export class QuestionsComponent {
   categories: string[] = [];
   selectedCategory = '';
 
-  constructor(service: QuestionService) {
+  constructor() {
+    const service = inject(QuestionService);
+
     this.questions = service.getAll();
     this.categories = service.getCategories();
     this.selectedCategory = this.categories[0] ?? '';

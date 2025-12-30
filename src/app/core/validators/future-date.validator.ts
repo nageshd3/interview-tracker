@@ -10,7 +10,7 @@ export const futureDateValidator: ValidatorFn = (
     const selectedDate = new Date(control.value);
     const today = new Date();
 
-    // Normalize to ignore time part
+    // Ignore time components for date-only comparison
     selectedDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 

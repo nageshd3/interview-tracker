@@ -1,5 +1,8 @@
 <h2>Interview Notes</h2>
 <textarea rows="10" placeholder="What did you learn?"></textarea>
-<div *ngFor="let note of notes">
+
+@for (note of notes; track note) {
+<div class="note-card">
   <p>{{ note }}</p>
 </div>
+}
