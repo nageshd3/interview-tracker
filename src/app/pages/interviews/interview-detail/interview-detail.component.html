@@ -1,16 +1,16 @@
-@if (interview) {
+@if (interview(); as int) {
 
-<h2>{{ interview.company }}</h2>
+<h2>{{ int.company }}</h2>
 
-<p><strong>Role:</strong> {{ interview.role }}</p>
+<p><strong>Role:</strong> {{ int.role }}</p>
 
-<p><strong>Status:</strong> {{ interview.status }}</p>
+<p><strong>Status:</strong> {{ int.status }}</p>
 
-<p><strong>Date:</strong> {{ interview.date }}</p>
+<p><strong>Date:</strong> {{ int.date }}</p>
 
-@if (interview.notes) {
+@if (int.notes) {
 <p>
-  <strong>Notes:</strong> {{ interview.notes }}
+  <strong>Notes:</strong> {{ int.notes }}
 </p>
 }
 

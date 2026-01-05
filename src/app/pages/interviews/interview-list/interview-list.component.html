@@ -65,7 +65,7 @@
 <h2>Interviews</h2>
 
 <ul>
-  @for (interview of interviews; track interview.id) {
+  @for (interview of interviews(); track interview.id) {
   <li>
     <a [routerLink]="['/interviews', interview.id]">
       {{ interview.company }} - {{ interview.role }}

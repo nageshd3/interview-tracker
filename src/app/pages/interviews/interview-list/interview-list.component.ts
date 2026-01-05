@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -34,27 +34,20 @@ export class InterviewListComponent {
   private service = inject(InterviewService);
   private snackBar = inject(MatSnackBar);
 
-  total = 0;
-  completed = 0;
-  scheduled = 0;
-  interviews: Interview[];
+  interviews = this.service.getAll();
+  total = computed(() => this.interviews().length);
+  completed = computed(() => this.interviews().filter((i: Interview) => i.status === 'Completed').length);
+  scheduled = computed(() => this.interviews().filter((i: Interview) => i.status === 'Scheduled').length);
   interviewForm: FormGroup;
   isSubmitting = false;
   today = new Date().toISOString().split('T')[0];
 
   constructor() {
-    const service = this.service;
-
     this.interviewForm = this.fb.group({
       company: ['', [Validators.required, Validators.minLength(2)]],
       role: ['', [Validators.required, Validators.minLength(2)]],
       date: ['', [Validators.required, futureDateValidator]]
     });
-
-    this.interviews = service.getAll();
-    this.total = this.interviews.length;
-    this.completed = this.interviews.filter((i: Interview) => i.status === 'Completed').length;
-    this.scheduled = this.interviews.filter((i: Interview) => i.status === 'Scheduled').length;
   }
 
   addInterview() {
@@ -69,7 +62,6 @@ export class InterviewListComponent {
     setTimeout(() => {
       try {
         this.service.addInterview(this.interviewForm.value);
-        this.interviews = this.service.getAll();
         this.interviewForm.reset();
 
         this.snackBar.open('Interview added successfully', 'Close', {
@@ -110,7 +102,6 @@ export class InterviewListComponent {
         const success = this.service.deleteInterview(id);
 
         if (success) {
-          this.interviews = this.service.getAll();
           this.snackBar.open('Interview deleted', 'Close', { duration: 3000 });
         } else {
           this.snackBar.open('Delete failed', 'Close', { duration: 3000 });

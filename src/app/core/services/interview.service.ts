@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed, Signal } from '@angular/core';
 import { Interview } from '../models/interview.model';
 
 @Injectable({ providedIn: 'root' })
 export class InterviewService {
   private storageKey = 'interviews';
-  private interviews: Interview[] = [];
+  private interviewsSignal = signal<Interview[]>([]);
 
   constructor() {
     this.loadFromStorage();
 
     // ✅ Seed data for first-time load only
-    if (this.interviews.length === 0) {
+    if (this.interviewsSignal().length === 0) {
       this.seedInitialData();
     }
   }
@@ -20,15 +20,15 @@ export class InterviewService {
   --------------------------*/
 
   /**
-   * Retrieve all interviews.
-   * @returns Array of Interview objects.
+   * Retrieve all interviews as a reactive signal.
+   * @returns Signal of Interview array.
    */
-  getAll(): Interview[] {
-    return [...this.interviews];
+  getAll(): Signal<Interview[]> {
+    return this.interviewsSignal.asReadonly();
   }
 
-  getById(id: number): Interview | undefined {
-    return this.interviews.find(i => i.id === id);
+  getById(id: number): Signal<Interview | undefined> {
+    return computed(() => this.interviewsSignal().find(i => i.id === id));
   }
 
   addInterview(data: Omit<Interview, 'id' | 'status'>): void {
@@ -38,28 +38,32 @@ export class InterviewService {
       ...data
     };
 
-    this.interviews.push(interview);
+    this.interviewsSignal.update(interviews => [...interviews, interview]);
     this.saveToStorage();
   }
 
   updateInterview(updated: Interview): boolean {
-    const index = this.interviews.findIndex(i => i.id === updated.id);
+    const index = this.interviewsSignal().findIndex(i => i.id === updated.id);
 
     if (index === -1) {
       console.warn('Interview not found for update:', updated.id);
       return false;
     }
 
-    this.interviews[index] = { ...updated };
+    this.interviewsSignal.update(interviews => {
+      const newInterviews = [...interviews];
+      newInterviews[index] = { ...updated };
+      return newInterviews;
+    });
     this.saveToStorage();
     return true;
   }
 
   deleteInterview(id: number): boolean {
-    const initialLength = this.interviews.length;
-    this.interviews = this.interviews.filter(i => i.id !== id);
+    const initialLength = this.interviewsSignal().length;
+    this.interviewsSignal.update(interviews => interviews.filter(i => i.id !== id));
 
-    if (this.interviews.length === initialLength) {
+    if (this.interviewsSignal().length === initialLength) {
       console.warn('Interview not found for delete:', id);
       return false;
     }
@@ -77,7 +81,7 @@ export class InterviewService {
       const stored = localStorage.getItem(this.storageKey);
 
       if (!stored) {
-        this.interviews = [];
+        this.interviewsSignal.set([]);
         return;
       }
 
@@ -87,10 +91,10 @@ export class InterviewService {
         throw new Error('Invalid interview data format');
       }
 
-      this.interviews = parsed;
+      this.interviewsSignal.set(parsed);
     } catch (error) {
       console.error('Failed to load interviews from localStorage:', error);
-      this.interviews = [];
+      this.interviewsSignal.set([]);
     }
   }
 
@@ -98,7 +102,7 @@ export class InterviewService {
     try {
       localStorage.setItem(
         this.storageKey,
-        JSON.stringify(this.interviews)
+        JSON.stringify(this.interviewsSignal())
       );
     } catch (error) {
       console.error('Failed to save interviews to localStorage:', error);
@@ -110,24 +114,25 @@ export class InterviewService {
   --------------------------*/
 
   private seedInitialData(): void {
-    this.interviews = [
+    const seedData: Interview[] = [
       {
         id: 1,
         company: 'Google',
         role: 'Frontend Engineer',
-        date: '2025-02-10',
+        date: '2026-02-10',
         status: 'Scheduled'
       },
       {
         id: 2,
         company: 'Microsoft',
         role: 'Angular Developer',
-        date: '2025-10-10',
+        date: '2026-10-10',
         status: 'Completed',
         notes: 'Strong RxJS and Angular fundamentals'
       }
     ];
 
+    this.interviewsSignal.set(seedData);
     this.saveToStorage();
   }
 }

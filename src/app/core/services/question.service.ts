@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed, Signal } from '@angular/core';
 import { Question } from '../models/question.model';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionService {
-    private questions: Question[] = [
+    private questionsSignal = signal<Question[]>([
         {
             id: 1,
             category: 'Angular',
@@ -184,21 +184,21 @@ export class QuestionService {
             question: 'What is the purpose of the pipe() method in RxJS?',
             answer: 'The pipe() method is used to combine multiple operators into a single function that can be applied to an Observable.'
         }
-    ];
+    ]);
 
-    getAll() {
-        return [...this.questions];
+    getAll(): Signal<Question[]> {
+        return this.questionsSignal.asReadonly();
     }
 
-    getById(id: number) {
-        return this.questions.find(q => q.id === id);
+    getById(id: number): Signal<Question | undefined> {
+        return computed(() => this.questionsSignal().find(q => q.id === id));
     }
 
     /**
      * Retrieve all unique question categories.
-     * @returns Array of unique category strings.
+     * @returns Signal of unique category strings.
      */
-    getCategories(): string[] {
-        return [...new Set(this.questions.map(q => q.category))];
+    getCategories(): Signal<string[]> {
+        return computed(() => [...new Set(this.questionsSignal().map(q => q.category))]);
     }
 }

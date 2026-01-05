@@ -5,8 +5,8 @@
     <h3>Categories</h3>
 
     <mat-nav-list>
-      @for (category of categories; track category) {
-      <a mat-list-item (click)="selectCategory(category)" [class.active]="category === selectedCategory" tabindex="0"
+      @for (category of categories(); track category) {
+      <a mat-list-item (click)="selectCategory(category)" [class.active]="category === selectedCategory()" tabindex="0"
         role="button" (keydown.enter)="selectCategory(category)">
         {{ category }}
       </a>
@@ -16,10 +16,10 @@
 
   <!-- Content -->
   <section class="qa-content">
-    <h2>{{ selectedCategory }} Questions</h2>
+    <h2>{{ selectedCategory() }} Questions</h2>
 
-    @if (filteredQuestions.length) {
-    @for (q of filteredQuestions; track q.question) {
+    @if (filteredQuestions().length) {
+    @for (q of filteredQuestions(); track q.question) {
     <mat-card class="qa-card">
       <mat-card-title>{{ q.question }}</mat-card-title>
       <mat-card-content>

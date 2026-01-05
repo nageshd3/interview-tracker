@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 
-import { Interview } from '../../../core/models/interview.model';
 import { InterviewService } from '../../../core/services/interview.service';
 
 @Component({
@@ -19,32 +18,30 @@ export class InterviewDetailComponent {
   private route = inject(ActivatedRoute);
   private service = inject(InterviewService);
 
-  interview: Interview | null = null;
-
-  constructor() {
+  interview = computed(() => {
     const idParam = this.route.snapshot.paramMap.get('id');
 
     if (!idParam) {
       this.redirectToList();
-      return;
+      return undefined;
     }
 
     const id = Number(idParam);
 
     if (Number.isNaN(id)) {
       this.redirectToList();
-      return;
+      return undefined;
     }
 
-    const interview = this.service.getById(id);
+    const interview = this.service.getById(id)();
 
     if (!interview) {
       this.redirectToList();
-      return;
+      return undefined;
     }
 
-    this.interview = interview;
-  }
+    return interview;
+  });
 
   private redirectToList() {
     this.router.navigate(['/interviews']);

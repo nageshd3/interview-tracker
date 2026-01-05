@@ -4,17 +4,17 @@
     <section class="summary-cards">
         <mat-card class="summary-card">
             <h3>Total Interviews</h3>
-            <p class="count">{{ total }}</p>
+            <p class="count">{{ total() }}</p>
         </mat-card>
 
         <mat-card class="summary-card">
             <h3>Completed Interviews</h3>
-            <p class="count">{{ completed.length }}</p>
+            <p class="count">{{ completed().length }}</p>
         </mat-card>
 
         <mat-card class="summary-card">
             <h3>Scheduled Interviews</h3>
-            <p class="count">{{ scheduled.length }}</p>
+            <p class="count">{{ scheduled().length }}</p>
         </mat-card>
     </section>
 
@@ -25,9 +25,9 @@
         <mat-card class="content-card">
             <h2>Completed Interviews</h2>
 
-            @if (completed.length) {
+            @if (completed().length) {
             <ul class="interview-list">
-                @for (interview of completed; track interview.id) {
+                @for (interview of completed(); track interview.id) {
                 <li class="clickable" tabindex="0" role="link" (keydown.enter)="null"
                     [routerLink]="['/interviews', interview.id]">
                     <div>
@@ -47,9 +47,9 @@
         <mat-card class="content-card">
             <h2>Scheduled Interviews</h2>
 
-            @if (scheduled.length) {
+            @if (scheduled().length) {
             <ul class="interview-list">
-                @for (interview of scheduled; track interview.id) {
+                @for (interview of scheduled(); track interview.id) {
                 <li class="clickable" tabindex="0" role="link" (keydown.enter)="null"
                     [routerLink]="['/interviews', interview.id]">
                     <div>

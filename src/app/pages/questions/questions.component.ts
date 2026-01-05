@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
@@ -15,25 +15,17 @@ import { QuestionService } from '../../core/services/question.service';
   styleUrl: './questions.component.css'
 })
 export class QuestionsComponent {
-  questions: Question[];
-  categories: string[] = [];
-  selectedCategory = '';
+  private service = inject(QuestionService);
 
-  constructor() {
-    const service = inject(QuestionService);
+  questions = this.service.getAll();
+  categories = this.service.getCategories();
+  selectedCategory = signal(this.categories()[0] ?? '');
 
-    this.questions = service.getAll();
-    this.categories = service.getCategories();
-    this.selectedCategory = this.categories[0] ?? '';
-  }
-
-  get filteredQuestions(): Question[] {
-    return this.questions.filter(
-      q => q.category === this.selectedCategory
-    );
-  }
+  filteredQuestions = computed(() =>
+    this.questions().filter(q => q.category === this.selectedCategory())
+  );
 
   selectCategory(category: string): void {
-    this.selectedCategory = category;
+    this.selectedCategory.set(category);
   }
 }

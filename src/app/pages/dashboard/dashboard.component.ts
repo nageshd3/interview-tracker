@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -18,7 +18,7 @@ export class DashboardComponent {
 
   interviews = this.interviewService.getAll();
 
-  total = this.interviews.length;
-  completed = this.interviews.filter(i => i.status === 'Completed');
-  scheduled = this.interviews.filter(i => i.status === 'Scheduled');
+  total = computed(() => this.interviews().length);
+  completed = computed(() => this.interviews().filter(i => i.status === 'Completed'));
+  scheduled = computed(() => this.interviews().filter(i => i.status === 'Scheduled'));
 }
