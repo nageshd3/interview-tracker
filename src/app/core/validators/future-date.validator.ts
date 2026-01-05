@@ -8,6 +8,11 @@ export const futureDateValidator: ValidatorFn = (
     }
 
     const selectedDate = new Date(control.value);
+
+    if (isNaN(selectedDate.getTime())) {
+        return { invalidDate: true };
+    }
+
     const today = new Date();
 
     // Ignore time components for date-only comparison

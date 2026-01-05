@@ -13,6 +13,8 @@ import { Interview } from '../../../core/models/interview.model';
 import { InterviewService } from '../../../core/services/interview.service';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog.component';
 import { futureDateValidator } from '../../../core/validators/future-date.validator';
+import { requiredTrimmedValidator } from '../../../core/validators/required-trimmed.validator';
+import { minLengthTrimmedValidator } from '../../../core/validators/min-length-trimmed.validator';
 
 @Component({
   selector: 'app-interview-list',
@@ -44,8 +46,8 @@ export class InterviewListComponent {
 
   constructor() {
     this.interviewForm = this.fb.group({
-      company: ['', [Validators.required, Validators.minLength(2)]],
-      role: ['', [Validators.required, Validators.minLength(2)]],
+      company: ['', [requiredTrimmedValidator, minLengthTrimmedValidator(2)]],
+      role: ['', [requiredTrimmedValidator, minLengthTrimmedValidator(2)]],
       date: ['', [Validators.required, futureDateValidator]]
     });
   }

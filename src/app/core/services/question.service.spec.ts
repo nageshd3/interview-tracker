@@ -19,7 +19,7 @@ describe('QuestionService', () => {
     });
 
     it('should return a list of questions', () => {
-        const questions = service.getAll();
+        const questions = service.getAll()();
 
         expect(questions).toBeTruthy();
         expect(Array.isArray(questions)).toBeTrue();
@@ -27,7 +27,7 @@ describe('QuestionService', () => {
     });
 
     it('should return questions with required properties', () => {
-        const question: Question = service.getAll()[0];
+        const question: Question = service.getAll()()[0];
 
         expect(question['id']).toBeDefined();
         expect(question['category']).toBeDefined();
@@ -36,14 +36,14 @@ describe('QuestionService', () => {
     });
 
     it('should return a new array reference (immutability)', () => {
-        const firstCall = service.getAll();
-        const secondCall = service.getAll();
+        const firstCall = service.getAll()();
+        const secondCall = service.getAll()();
 
         expect(firstCall).not.toBe(secondCall);
     });
 
     it('should return unique categories', () => {
-        const categories = service.getCategories();
+        const categories = service.getCategories()();
 
         expect(categories.length).toBeGreaterThan(0);
         expect(new Set(categories).size).toBe(categories.length);

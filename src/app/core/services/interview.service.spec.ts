@@ -26,7 +26,7 @@ describe('InterviewService', () => {
             date: '2025-01-01'
         });
 
-        const interviews = service.getAll();
+        const interviews = service.getAll()();
         expect(interviews.length).toBe(3); // 2 seeded + 1 added
         expect(interviews[2].company).toBe('Google'); // last one
     });
@@ -38,7 +38,7 @@ describe('InterviewService', () => {
             date: '2025-02-01'
         });
 
-        const interview = service.getAll()[0];
+        const interview = service.getAll()()[0];
 
         const updated: Interview = {
             ...interview,
@@ -48,7 +48,7 @@ describe('InterviewService', () => {
         const result = service.updateInterview(updated);
 
         expect(result).toBeTrue();
-        expect(service.getById(interview.id)?.role).toBe('Senior UI Dev');
+        expect(service.getById(interview.id)()?.role).toBe('Senior UI Dev');
     });
 
     it('should delete an interview', () => {
@@ -58,11 +58,11 @@ describe('InterviewService', () => {
             date: '2025-03-01'
         });
 
-        const interview = service.getAll()[2]; // the added one
+        const interview = service.getAll()()[2]; // the added one
         const result = service.deleteInterview(interview.id);
 
         expect(result).toBeTrue();
-        expect(service.getAll().length).toBe(2); // back to seeded
+        expect(service.getAll()().length).toBe(2); // back to seeded
     });
 
     it('should handle invalid delete gracefully', () => {
@@ -74,6 +74,6 @@ describe('InterviewService', () => {
         localStorage.setItem('interviews', 'INVALID_JSON');
 
         const newService = new InterviewService();
-        expect(newService.getAll().length).toBe(2); // seeded data
+        expect(newService.getAll()().length).toBe(2); // seeded data
     });
 });

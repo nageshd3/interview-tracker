@@ -24,7 +24,7 @@ export class InterviewService {
    * @returns Signal of Interview array.
    */
   getAll(): Signal<Interview[]> {
-    return this.interviewsSignal.asReadonly();
+    return computed(() => [...this.interviewsSignal()]);
   }
 
   getById(id: number): Signal<Interview | undefined> {

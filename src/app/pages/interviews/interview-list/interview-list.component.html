@@ -13,7 +13,11 @@
 
     @if (company?.invalid && company?.touched) {
     <mat-error id="company-error">
-      Company name is required and must be at least 2 characters
+      @if (company?.hasError('required')) {
+      Company name is required
+      } @else if (company?.hasError('minLengthTrimmed')) {
+      Company name must be at least 2 characters
+      }
     </mat-error>
     }
   </mat-form-field>
@@ -26,7 +30,11 @@
 
     @if (role?.invalid && role?.touched) {
     <mat-error id="role-error">
-      Role is required and must be at least 2 characters
+      @if (role?.hasError('required')) {
+      Role is required
+      } @else if (role?.hasError('minLengthTrimmed')) {
+      Role must be at least 2 characters
+      }
     </mat-error>
     }
   </mat-form-field>
@@ -38,15 +46,15 @@
     <input matInput type="date" formControlName="date" aria-required="true" aria-describedby="date-error"
       [min]="today" />
 
-    @if ((date?.invalid && date?.touched) || date?.hasError('required')) {
+    @if (date?.invalid && date?.touched) {
     <mat-error id="date-error">
+      @if (date?.hasError('required')) {
       Interview date is required
-    </mat-error>
-    }
-
-    @if (date?.hasError('pastDate')) {
-    <mat-error>
+      } @else if (date?.hasError('invalidDate')) {
+      Invalid date format
+      } @else if (date?.hasError('pastDate')) {
       Interview date cannot be in the past
+      }
     </mat-error>
     }
   </mat-form-field>

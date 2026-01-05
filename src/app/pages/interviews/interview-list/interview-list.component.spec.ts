@@ -52,7 +52,7 @@ describe('InterviewListComponent', () => {
     component.interviewForm.updateValueAndValidity();
     fixture.detectChanges();
 
-    expect(component.company?.hasError('minlength')).toBeTrue();
+    expect(component.company?.hasError('minLengthTrimmed')).toBeTrue();
     expect(component.company?.valid).toBeFalse();
   });
 

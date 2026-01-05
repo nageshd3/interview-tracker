@@ -187,7 +187,7 @@ export class QuestionService {
     ]);
 
     getAll(): Signal<Question[]> {
-        return this.questionsSignal.asReadonly();
+        return computed(() => [...this.questionsSignal()]);
     }
 
     getById(id: number): Signal<Question | undefined> {
