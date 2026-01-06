@@ -17,6 +17,7 @@ export class DashboardComponent {
   private interviewService = inject(InterviewService);
 
   interviews = this.interviewService.getAll();
+  error = this.interviewService.getError();
 
   total = computed(() => this.interviews().length);
   completed = computed(() => this.interviews().filter(i => i.status === 'Completed'));

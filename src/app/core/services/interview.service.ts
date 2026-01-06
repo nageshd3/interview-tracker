@@ -5,6 +5,7 @@ import { Interview } from '../models/interview.model';
 export class InterviewService {
   private storageKey = 'interviews';
   private interviewsSignal = signal<Interview[]>([]);
+  private errorSignal = signal<string | null>(null);
 
   constructor() {
     this.loadFromStorage();
@@ -29,6 +30,14 @@ export class InterviewService {
 
   getById(id: number): Signal<Interview | undefined> {
     return computed(() => this.interviewsSignal().find(i => i.id === id));
+  }
+
+  getError(): Signal<string | null> {
+    return this.errorSignal.asReadonly();
+  }
+
+  clearError(): void {
+    this.errorSignal.set(null);
   }
 
   addInterview(data: Omit<Interview, 'id' | 'status'>): void {
@@ -82,6 +91,7 @@ export class InterviewService {
 
       if (!stored) {
         this.interviewsSignal.set([]);
+        this.errorSignal.set(null); // Clear any previous error
         return;
       }
 
@@ -92,20 +102,26 @@ export class InterviewService {
       }
 
       this.interviewsSignal.set(parsed);
+      this.errorSignal.set(null); // Success, clear error
     } catch (error) {
       console.error('Failed to load interviews from localStorage:', error);
       this.interviewsSignal.set([]);
+      this.errorSignal.set('Failed to load interviews from storage. Using default data.');
     }
   }
 
-  private saveToStorage(): void {
+  private saveToStorage(): boolean {
     try {
       localStorage.setItem(
         this.storageKey,
         JSON.stringify(this.interviewsSignal())
       );
+      this.errorSignal.set(null); // Success, clear error
+      return true;
     } catch (error) {
       console.error('Failed to save interviews to localStorage:', error);
+      this.errorSignal.set('Failed to save interviews to storage.');
+      return false;
     }
   }
 

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -24,6 +25,7 @@ import { minLengthTrimmedValidator } from '../../../core/validators/min-length-t
     RouterModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatCardModule,
     MatInputModule,
     MatProgressSpinnerModule
   ],
@@ -37,6 +39,7 @@ export class InterviewListComponent {
   private snackBar = inject(MatSnackBar);
 
   interviews = this.service.getAll();
+  error = this.service.getError();
   total = computed(() => this.interviews().length);
   completed = computed(() => this.interviews().filter((i: Interview) => i.status === 'Completed').length);
   scheduled = computed(() => this.interviews().filter((i: Interview) => i.status === 'Scheduled').length);

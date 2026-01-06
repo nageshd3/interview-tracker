@@ -1,5 +1,13 @@
 <h2>Add Interview</h2>
 
+@if (error()) {
+<mat-card class="error-card">
+    <mat-card-content>
+        <p class="error-message">{{ error() }}</p>
+    </mat-card-content>
+</mat-card>
+}
+
 <form [formGroup]="interviewForm" (ngSubmit)="addInterview()" aria-labelledby="add-interview-title">
   <h3 id="add-interview-title" class="visually-hidden">
     Add a new interview
