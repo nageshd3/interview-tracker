@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.lock
+package-lock.json
+angular.json
+tsconfig*.json
+.eslintrc*
+eslint.config.js
+.prettierrc
+.prettierignore
