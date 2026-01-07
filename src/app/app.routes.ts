@@ -7,23 +7,18 @@ export const routes: Routes = [
   {
     path: 'interviews',
     loadChildren: () =>
-      import('./pages/interviews/interviews.routes')
-        .then(m => m.INTERVIEWS_ROUTES)
+      import('./pages/interviews/interviews.routes').then(m => m.INTERVIEWS_ROUTES),
   },
 
   {
     path: 'questions',
-    loadChildren: () =>
-      import('./pages/questions/questions.routes')
-        .then(m => m.QUESTIONS_ROUTES)
+    loadChildren: () => import('./pages/questions/questions.routes').then(m => m.QUESTIONS_ROUTES),
   },
 
   {
     path: 'notes',
-    loadChildren: () =>
-      import('./pages/notes/notes.routes')
-        .then(m => m.NOTES_ROUTES)
+    loadChildren: () => import('./pages/notes/notes.routes').then(m => m.NOTES_ROUTES),
   },
 
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];

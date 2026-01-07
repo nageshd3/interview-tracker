@@ -11,7 +11,7 @@ import { InterviewService } from '../../../core/services/interview.service';
   standalone: true,
   imports: [CommonModule, RouterLink, MatButtonModule],
   templateUrl: './interview-detail.component.html',
-  styleUrl: './interview-detail.component.css'
+  styleUrl: './interview-detail.component.css',
 })
 export class InterviewDetailComponent {
   private router = inject(Router);

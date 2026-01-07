@@ -3,77 +3,77 @@ import { InterviewService } from './interview.service';
 import { Interview } from '../models/interview.model';
 
 describe('InterviewService', () => {
-    let service: InterviewService;
+  let service: InterviewService;
 
-    beforeEach(() => {
-        localStorage.clear();
+  beforeEach(() => {
+    localStorage.clear();
 
-        TestBed.configureTestingModule({
-            providers: [InterviewService]
-        });
-
-        service = TestBed.inject(InterviewService);
+    TestBed.configureTestingModule({
+      providers: [InterviewService],
     });
 
-    it('should be created', () => {
-        expect(service).toBeTruthy();
+    service = TestBed.inject(InterviewService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should add an interview and persist it', () => {
+    service.addInterview({
+      company: 'Google',
+      role: 'Frontend',
+      date: '2025-01-01',
     });
 
-    it('should add an interview and persist it', () => {
-        service.addInterview({
-            company: 'Google',
-            role: 'Frontend',
-            date: '2025-01-01'
-        });
+    const interviews = service.getAll()();
+    expect(interviews.length).toBe(3); // 2 seeded + 1 added
+    expect(interviews[2].company).toBe('Google'); // last one
+  });
 
-        const interviews = service.getAll()();
-        expect(interviews.length).toBe(3); // 2 seeded + 1 added
-        expect(interviews[2].company).toBe('Google'); // last one
+  it('should update an existing interview', () => {
+    service.addInterview({
+      company: 'Amazon',
+      role: 'UI Dev',
+      date: '2025-02-01',
     });
 
-    it('should update an existing interview', () => {
-        service.addInterview({
-            company: 'Amazon',
-            role: 'UI Dev',
-            date: '2025-02-01'
-        });
+    const interview = service.getAll()()[0];
 
-        const interview = service.getAll()()[0];
+    const updated: Interview = {
+      ...interview,
+      role: 'Senior UI Dev',
+    };
 
-        const updated: Interview = {
-            ...interview,
-            role: 'Senior UI Dev'
-        };
+    const result = service.updateInterview(updated);
 
-        const result = service.updateInterview(updated);
+    expect(result).toBeTrue();
+    expect(service.getById(interview.id)()?.role).toBe('Senior UI Dev');
+  });
 
-        expect(result).toBeTrue();
-        expect(service.getById(interview.id)()?.role).toBe('Senior UI Dev');
+  it('should delete an interview', () => {
+    service.addInterview({
+      company: 'Meta',
+      role: 'Frontend',
+      date: '2025-03-01',
     });
 
-    it('should delete an interview', () => {
-        service.addInterview({
-            company: 'Meta',
-            role: 'Frontend',
-            date: '2025-03-01'
-        });
+    const interview = service.getAll()()[2]; // the added one
+    const result = service.deleteInterview(interview.id);
 
-        const interview = service.getAll()()[2]; // the added one
-        const result = service.deleteInterview(interview.id);
+    expect(result).toBeTrue();
+    expect(service.getAll()().length).toBe(2); // back to seeded
+  });
 
-        expect(result).toBeTrue();
-        expect(service.getAll()().length).toBe(2); // back to seeded
-    });
+  it('should handle invalid delete gracefully', () => {
+    const result = service.deleteInterview(999);
+    expect(result).toBeFalse();
+  });
 
-    it('should handle invalid delete gracefully', () => {
-        const result = service.deleteInterview(999);
-        expect(result).toBeFalse();
-    });
+  it('should not crash on corrupted localStorage data', () => {
+    localStorage.setItem('interviews', 'INVALID_JSON');
 
-    it('should not crash on corrupted localStorage data', () => {
-        localStorage.setItem('interviews', 'INVALID_JSON');
-
-        const newService = new InterviewService();
-        expect(newService.getAll()().length).toBe(2); // seeded data
-    });
+    const newService = new InterviewService();
+    expect(newService.getAll()().length).toBe(2); // seeded data
+  });
 });

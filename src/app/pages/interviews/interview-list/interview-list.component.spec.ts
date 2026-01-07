@@ -21,13 +21,13 @@ describe('InterviewListComponent', () => {
       imports: [
         InterviewListComponent,
         NoopAnimationsModule,
-        RouterTestingModule // avoids Material animation issues
+        RouterTestingModule, // avoids Material animation issues
       ],
       providers: [
-  InterviewService,
-  { provide: MatDialog, useValue: jasmine.createSpyObj('MatDialog', ['open']) },
-  { provide: MatSnackBar, useValue: jasmine.createSpyObj('MatSnackBar', ['open']) }
-]
+        InterviewService,
+        { provide: MatDialog, useValue: jasmine.createSpyObj('MatDialog', ['open']) },
+        { provide: MatSnackBar, useValue: jasmine.createSpyObj('MatSnackBar', ['open']) },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InterviewListComponent);
@@ -56,8 +56,6 @@ describe('InterviewListComponent', () => {
     expect(component.company?.valid).toBeFalse();
   });
 
-
-
   it('should mark form valid with correct inputs', () => {
     component.company?.setValue('Google');
     component.role?.setValue('Frontend Developer');
@@ -69,7 +67,6 @@ describe('InterviewListComponent', () => {
 
     expect(component.interviewForm.valid).toBeTrue();
   });
-
 
   it('should not submit when form is invalid', () => {
     spyOn(component, 'addInterview').and.callThrough();

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 
-import { Question } from '../../core/models/question.model';
 import { QuestionService } from '../../core/services/question.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { QuestionService } from '../../core/services/question.service';
   standalone: true,
   imports: [CommonModule, MatListModule, MatCardModule],
   templateUrl: './questions.component.html',
-  styleUrl: './questions.component.css'
+  styleUrl: './questions.component.css',
 })
 export class QuestionsComponent {
   private service = inject(QuestionService);

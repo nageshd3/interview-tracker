@@ -18,18 +18,18 @@ describe('InterviewDetailComponent', () => {
           useValue: {
             snapshot: {
               paramMap: {
-                get: () => '1'
-              }
-            }
-          }
+                get: () => '1',
+              },
+            },
+          },
         },
         {
           provide: Router,
           useValue: {
-            navigate: jasmine.createSpy('navigate')
-          }
-        }
-      ]
+            navigate: jasmine.createSpy('navigate'),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InterviewDetailComponent);

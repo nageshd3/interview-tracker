@@ -11,7 +11,7 @@ import { InterviewService } from '../../core/services/interview.service';
   standalone: true,
   imports: [CommonModule, MatCardModule, RouterModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
   private interviewService = inject(InterviewService);

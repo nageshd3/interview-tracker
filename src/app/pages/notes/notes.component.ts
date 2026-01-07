@@ -6,12 +6,12 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './notes.component.html',
-  styleUrl: './notes.component.css'
+  styleUrl: './notes.component.css',
 })
 export class NotesComponent {
   notes: string[] = [
     'Prepare questions for the interviewer.',
     'Research the company background.',
-    'Practice common interview questions.'
+    'Practice common interview questions.',
   ];
 }

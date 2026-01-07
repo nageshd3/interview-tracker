@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Interview } from '../../../core/models/interview.model';
@@ -27,10 +28,11 @@ import { minLengthTrimmedValidator } from '../../../core/validators/min-length-t
     MatButtonModule,
     MatCardModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   templateUrl: './interview-list.component.html',
-  styleUrl: './interview-list.component.css'
+  styleUrl: './interview-list.component.css',
 })
 export class InterviewListComponent {
   private fb = inject(FormBuilder);
@@ -40,9 +42,47 @@ export class InterviewListComponent {
 
   interviews = this.service.getAll();
   error = this.service.getError();
-  total = computed(() => this.interviews().length);
-  completed = computed(() => this.interviews().filter((i: Interview) => i.status === 'Completed').length);
-  scheduled = computed(() => this.interviews().filter((i: Interview) => i.status === 'Scheduled').length);
+
+  // Filter signals
+  statusFilter = signal<string>('All');
+  companyFilter = signal<string>('');
+  searchTerm = signal<string>('');
+
+  // Filtered interviews
+  filteredInterviews = computed(() => {
+    let filtered = this.interviews();
+
+    // Filter by status
+    if (this.statusFilter() !== 'All') {
+      filtered = filtered.filter(i => i.status === this.statusFilter());
+    }
+
+    // Filter by company (case-insensitive)
+    if (this.companyFilter().trim()) {
+      const company = this.companyFilter().toLowerCase().trim();
+      filtered = filtered.filter(i => i.company.toLowerCase().includes(company));
+    }
+
+    // Filter by search term (company or role)
+    if (this.searchTerm().trim()) {
+      const term = this.searchTerm().toLowerCase().trim();
+      filtered = filtered.filter(
+        i => i.company.toLowerCase().includes(term) || i.role.toLowerCase().includes(term)
+      );
+    }
+
+    return filtered;
+  });
+
+  // Computed stats based on filtered results
+  total = computed(() => this.filteredInterviews().length);
+  completed = computed(
+    () => this.filteredInterviews().filter((i: Interview) => i.status === 'Completed').length
+  );
+  scheduled = computed(
+    () => this.filteredInterviews().filter((i: Interview) => i.status === 'Scheduled').length
+  );
+
   interviewForm: FormGroup;
   isSubmitting = false;
   today = new Date().toISOString().split('T')[0];
@@ -51,7 +91,7 @@ export class InterviewListComponent {
     this.interviewForm = this.fb.group({
       company: ['', [requiredTrimmedValidator, minLengthTrimmedValidator(2)]],
       role: ['', [requiredTrimmedValidator, minLengthTrimmedValidator(2)]],
-      date: ['', [Validators.required, futureDateValidator]]
+      date: ['', [Validators.required, futureDateValidator]],
     });
   }
 
@@ -70,11 +110,11 @@ export class InterviewListComponent {
         this.interviewForm.reset();
 
         this.snackBar.open('Interview added successfully', 'Close', {
-          duration: 3000
+          duration: 3000,
         });
       } catch {
         this.snackBar.open('Failed to add interview', 'Close', {
-          duration: 3000
+          duration: 3000,
         });
       } finally {
         this.isSubmitting = false;
@@ -98,8 +138,8 @@ export class InterviewListComponent {
   deleteInterview(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        message: 'Are you sure you want to delete this interview?'
-      }
+        message: 'Are you sure you want to delete this interview?',
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -115,4 +155,24 @@ export class InterviewListComponent {
     });
   }
 
+  // Filter methods
+  updateStatusFilter(status: string): void {
+    this.statusFilter.set(status);
+  }
+
+  updateCompanyFilter(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.companyFilter.set(value);
+  }
+
+  updateSearchTerm(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchTerm.set(value);
+  }
+
+  clearFilters(): void {
+    this.statusFilter.set('All');
+    this.companyFilter.set('');
+    this.searchTerm.set('');
+  }
 }

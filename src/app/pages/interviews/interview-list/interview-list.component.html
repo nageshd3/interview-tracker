@@ -1,32 +1,35 @@
 <h2>Add Interview</h2>
 
 @if (error()) {
-<mat-card class="error-card">
+  <mat-card class="error-card">
     <mat-card-content>
-        <p class="error-message">{{ error() }}</p>
+      <p class="error-message">{{ error() }}</p>
     </mat-card-content>
-</mat-card>
+  </mat-card>
 }
 
 <form [formGroup]="interviewForm" (ngSubmit)="addInterview()" aria-labelledby="add-interview-title">
-  <h3 id="add-interview-title" class="visually-hidden">
-    Add a new interview
-  </h3>
+  <h3 id="add-interview-title" class="visually-hidden">Add a new interview</h3>
 
   <!-- Company -->
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Company</mat-label>
 
-    <input matInput formControlName="company" aria-required="true" aria-describedby="company-error" />
+    <input
+      matInput
+      formControlName="company"
+      aria-required="true"
+      aria-describedby="company-error"
+    />
 
     @if (company?.invalid && company?.touched) {
-    <mat-error id="company-error">
-      @if (company?.hasError('required')) {
-      Company name is required
-      } @else if (company?.hasError('minLengthTrimmed')) {
-      Company name must be at least 2 characters
-      }
-    </mat-error>
+      <mat-error id="company-error">
+        @if (company?.hasError('required')) {
+          Company name is required
+        } @else if (company?.hasError('minLengthTrimmed')) {
+          Company name must be at least 2 characters
+        }
+      </mat-error>
     }
   </mat-form-field>
 
@@ -37,13 +40,13 @@
     <input matInput formControlName="role" aria-required="true" aria-describedby="role-error" />
 
     @if (role?.invalid && role?.touched) {
-    <mat-error id="role-error">
-      @if (role?.hasError('required')) {
-      Role is required
-      } @else if (role?.hasError('minLengthTrimmed')) {
-      Role must be at least 2 characters
-      }
-    </mat-error>
+      <mat-error id="role-error">
+        @if (role?.hasError('required')) {
+          Role is required
+        } @else if (role?.hasError('minLengthTrimmed')) {
+          Role must be at least 2 characters
+        }
+      </mat-error>
     }
   </mat-form-field>
 
@@ -51,41 +54,99 @@
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Interview Date</mat-label>
 
-    <input matInput type="date" formControlName="date" aria-required="true" aria-describedby="date-error"
-      [min]="today" />
+    <input
+      matInput
+      type="date"
+      formControlName="date"
+      aria-required="true"
+      aria-describedby="date-error"
+      [min]="today"
+    />
 
     @if (date?.invalid && date?.touched) {
-    <mat-error id="date-error">
-      @if (date?.hasError('required')) {
-      Interview date is required
-      } @else if (date?.hasError('invalidDate')) {
-      Invalid date format
-      } @else if (date?.hasError('pastDate')) {
-      Interview date cannot be in the past
-      }
-    </mat-error>
+      <mat-error id="date-error">
+        @if (date?.hasError('required')) {
+          Interview date is required
+        } @else if (date?.hasError('invalidDate')) {
+          Invalid date format
+        } @else if (date?.hasError('pastDate')) {
+          Interview date cannot be in the past
+        }
+      </mat-error>
     }
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="interviewForm.invalid || isSubmitting">
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="interviewForm.invalid || isSubmitting"
+  >
     @if (!isSubmitting) {
-    Add Interview
+      Add Interview
     } @else {
-    <mat-spinner diameter="20"></mat-spinner>
+      <mat-spinner diameter="20"></mat-spinner>
     }
   </button>
 </form>
 
 <hr />
 
-<h2>Interviews</h2>
+<!-- Filters -->
+<mat-card class="filters-card">
+  <mat-card-header>
+    <mat-card-title>Filters</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="filters-row">
+      <!-- Status Filter -->
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [value]="statusFilter()" (selectionChange)="updateStatusFilter($event.value)">
+          <mat-option value="All">All</mat-option>
+          <mat-option value="Scheduled">Scheduled</mat-option>
+          <mat-option value="Completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Company Filter -->
+      <mat-form-field appearance="outline">
+        <mat-label>Company</mat-label>
+        <input
+          matInput
+          [value]="companyFilter()"
+          (input)="updateCompanyFilter($event)"
+          placeholder="Filter by company"
+        />
+      </mat-form-field>
+
+      <!-- Search Term -->
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          [value]="searchTerm()"
+          (input)="updateSearchTerm($event)"
+          placeholder="Search company or role"
+        />
+      </mat-form-field>
+
+      <!-- Clear Filters -->
+      <button mat-stroked-button (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<hr />
+
+<h2>Interviews ({{ total() }})</h2>
 
 <ul>
-  @for (interview of interviews(); track interview.id) {
-  <li>
-    <a [routerLink]="['/interviews', interview.id]">
-      {{ interview.company }} - {{ interview.role }}
-    </a>
-  </li>
+  @for (interview of filteredInterviews(); track interview.id) {
+    <li>
+      <a [routerLink]="['/interviews', interview.id]">
+        {{ interview.company }} - {{ interview.role }}
+      </a>
+    </li>
   }
 </ul>

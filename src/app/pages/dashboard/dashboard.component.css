@@ -5,6 +5,16 @@
   padding: 24px;
 }
 
+.error-card {
+  margin-bottom: 16px;
+  background-color: #ffebee;
+}
+
+.error-message {
+  color: #c62828;
+  margin: 0;
+}
+
 /* Summary Cards */
 .summary-cards {
   display: grid;
@@ -62,7 +72,7 @@
 }
 
 .mat-mdc-card {
-    padding: 15px;
+  padding: 15px;
 }
 
 .interview-list li.clickable {

@@ -3,9 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    standalone: true,
-    imports: [MatDialogModule, MatButtonModule],
-    template: `
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+  template: `
     <h2 mat-dialog-title>Confirm</h2>
 
     <mat-dialog-content>
@@ -14,14 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close="false">Cancel</button>
-      <button mat-raised-button color="warn" mat-dialog-close="true">
-        Delete
-      </button>
+      <button mat-raised-button color="warn" mat-dialog-close="true">Delete</button>
     </mat-dialog-actions>
-  `
+  `,
 })
-export class ConfirmDialogComponent {    data = inject<{
+export class ConfirmDialogComponent {
+  data = inject<{
     message: string;
-}>(MAT_DIALOG_DATA);
-
+  }>(MAT_DIALOG_DATA);
 }

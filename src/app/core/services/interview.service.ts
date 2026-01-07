@@ -44,7 +44,7 @@ export class InterviewService {
     const interview: Interview = {
       id: Date.now(),
       status: 'Scheduled',
-      ...data
+      ...data,
     };
 
     this.interviewsSignal.update(interviews => [...interviews, interview]);
@@ -112,10 +112,7 @@ export class InterviewService {
 
   private saveToStorage(): boolean {
     try {
-      localStorage.setItem(
-        this.storageKey,
-        JSON.stringify(this.interviewsSignal())
-      );
+      localStorage.setItem(this.storageKey, JSON.stringify(this.interviewsSignal()));
       this.errorSignal.set(null); // Success, clear error
       return true;
     } catch (error) {
@@ -136,7 +133,7 @@ export class InterviewService {
         company: 'Google',
         role: 'Frontend Engineer',
         date: '2026-02-10',
-        status: 'Scheduled'
+        status: 'Scheduled',
       },
       {
         id: 2,
@@ -144,8 +141,8 @@ export class InterviewService {
         role: 'Angular Developer',
         date: '2026-10-10',
         status: 'Completed',
-        notes: 'Strong RxJS and Angular fundamentals'
-      }
+        notes: 'Strong RxJS and Angular fundamentals',
+      },
     ];
 
     this.interviewsSignal.set(seedData);

@@ -3,6 +3,6 @@ import { InterviewListComponent } from './interview-list/interview-list.componen
 import { InterviewDetailComponent } from './interview-detail/interview-detail.component';
 
 export const INTERVIEWS_ROUTES: Routes = [
-    { path: '', component: InterviewListComponent },
-    { path: ':id', component: InterviewDetailComponent }
+  { path: '', component: InterviewListComponent },
+  { path: ':id', component: InterviewDetailComponent },
 ];
