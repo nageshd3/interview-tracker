@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import { InterviewService } from '../../../core/services/interview.service';
 
 @Component({
   selector: 'app-interview-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatButtonModule],
+  imports: [CommonModule, RouterLink, MatButtonModule, MatCardModule, MatIconModule],
   templateUrl: './interview-detail.component.html',
   styleUrl: './interview-detail.component.css',
 })

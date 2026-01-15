@@ -1,8 +1,99 @@
-<h2>Interview Notes</h2>
-<textarea rows="10" placeholder="What did you learn?"></textarea>
+<div class="notes-container">
+  <h1>Interview Notes & Tips</h1>
 
-@for (note of notes; track note) {
-  <div class="note-card">
-    <p>{{ note }}</p>
-  </div>
-}
+  <section class="intro-section">
+    <h2>Maximize Your Interview Success</h2>
+    <p>
+      Interview notes are your personal knowledge base. Use them to document insights, track
+      patterns, and refine your interview strategy. Here are essential tips to help you prepare and
+      perform at your best.
+    </p>
+  </section>
+
+  <!-- Key Notes Section -->
+  <section class="notes-section">
+    <h2 style="font-size: 1.8rem; color: #333; margin-bottom: 30px; font-weight: 600">
+      Key Interview Notes
+    </h2>
+    <div class="notes-grid">
+      @for (note of notes; track note; let i = $index) {
+        <div class="note-card">
+          <div class="note-number">{{ i + 1 }}</div>
+          <p>{{ note }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Tips Section -->
+  <section class="tips-section">
+    <h2>Pro Tips for Interview Excellence</h2>
+    <div class="tips-list">
+      <div class="tip-item">
+        <mat-icon class="tip-icon">check_circle</mat-icon>
+        <div class="tip-content">
+          <h4>Document Everything</h4>
+          <p>
+            Take detailed notes after each interview about the company, interviewers, questions
+            asked, and your responses. This helps you track progress and identify patterns.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-item">
+        <mat-icon class="tip-icon">lightbulb</mat-icon>
+        <div class="tip-content">
+          <h4>Learn from Feedback</h4>
+          <p>
+            If you receive feedback, note it down and address the gaps. Use this information to
+            improve your interview performance for the next opportunity.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-item">
+        <mat-icon class="tip-icon">target</mat-icon>
+        <div class="tip-content">
+          <h4>Track Patterns</h4>
+          <p>
+            Look for recurring themes in interview questions. This helps you prepare better answers
+            and feel more confident when faced with similar questions.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-item">
+        <mat-icon class="tip-icon">people</mat-icon>
+        <div class="tip-content">
+          <h4>Remember Interviewer Details</h4>
+          <p>
+            Note names, roles, and key interests of your interviewers. Personalized follow-up emails
+            make a lasting impression.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-item">
+        <mat-icon class="tip-icon">description</mat-icon>
+        <div class="tip-content">
+          <h4>Create Interview Templates</h4>
+          <p>
+            Develop standard questions to ask about company culture, role expectations, and career
+            growth opportunities. This ensures thorough company evaluation.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-item">
+        <mat-icon class="tip-icon">trending_up</mat-icon>
+        <div class="tip-content">
+          <h4>Measure Your Growth</h4>
+          <p>
+            Review your notes periodically to track your interviewing journey. Celebrate
+            improvements and stay motivated throughout your job search.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

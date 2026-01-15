@@ -1,4 +1,6 @@
 <div class="dashboard-container">
+  <h1>Interview Dashboard</h1>
+
   @if (error()) {
     <mat-card class="error-card">
       <mat-card-content>
@@ -15,12 +17,12 @@
     </mat-card>
 
     <mat-card class="summary-card">
-      <h3>Completed Interviews</h3>
+      <h3>Completed</h3>
       <p class="count">{{ completed().length }}</p>
     </mat-card>
 
     <mat-card class="summary-card">
-      <h3>Scheduled Interviews</h3>
+      <h3>Scheduled</h3>
       <p class="count">{{ scheduled().length }}</p>
     </mat-card>
   </section>

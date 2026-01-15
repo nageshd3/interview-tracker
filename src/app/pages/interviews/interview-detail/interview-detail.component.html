@@ -1,20 +1,80 @@
-@if (interview(); as int) {
-  <h2>{{ int.company }}</h2>
+<div class="interview-detail-container">
+  <a routerLink="/interviews" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Interviews
+  </a>
 
-  <p><strong>Role:</strong> {{ int.role }}</p>
+  @if (interview(); as int) {
+    <mat-card class="interview-card">
+      <div class="interview-header">
+        <h2>{{ int.company }}</h2>
+        <p class="role">{{ int.role }}</p>
+      </div>
 
-  <p><strong>Status:</strong> {{ int.status }}</p>
+      <mat-card-content>
+        <!-- Interview Details Section -->
+        <section class="detail-section">
+          <div class="detail-row">
+            <span class="detail-label">
+              <mat-icon>event</mat-icon>
+              Interview Date
+            </span>
+            <span class="detail-value">{{ int.date }}</span>
+          </div>
 
-  <p><strong>Date:</strong> {{ int.date }}</p>
+          <div class="detail-row">
+            <span class="detail-label">
+              <mat-icon>info</mat-icon>
+              Status
+            </span>
+            <span class="detail-value">
+              <span class="status-badge" [ngClass]="'status-' + int.status.toLowerCase()">
+                {{ int.status }}
+              </span>
+            </span>
+          </div>
+        </section>
 
-  @if (int.notes) {
-    <p><strong>Notes:</strong> {{ int.notes }}</p>
+        <!-- Notes Section -->
+        @if (int.notes) {
+          <section class="notes-section">
+            <h4>Interview Notes</h4>
+            <p>{{ int.notes }}</p>
+          </section>
+        } @else {
+          <section class="notes-section">
+            <h4>Interview Notes</h4>
+            <p class="empty">No notes added for this interview yet.</p>
+          </section>
+        }
+      </mat-card-content>
+
+      <mat-card-actions class="button-group">
+        <button mat-raised-button color="primary" routerLink="/interviews">
+          <mat-icon>list</mat-icon>
+          View All Interviews
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  } @else {
+    <div class="not-found-container">
+      <mat-icon
+        style="
+          font-size: 64px;
+          width: 64px;
+          height: 64px;
+          color: #bbb;
+          display: block;
+          margin-bottom: 16px;
+        "
+        >search_off</mat-icon
+      >
+      <h2>Interview Not Found</h2>
+      <p>The interview you are looking for does not exist or has been deleted.</p>
+      <button mat-raised-button color="primary" routerLink="/interviews">
+        <mat-icon>arrow_forward</mat-icon>
+        Go to Interviews
+      </button>
+    </div>
   }
-
-  <button mat-stroked-button color="primary" routerLink="/interviews">Back to Interviews</button>
-} @else {
-  <h3>Interview not found</h3>
-  <p>The interview you are looking for does not exist.</p>
-
-  <button mat-raised-button color="primary" routerLink="/interviews">Go to Interviews</button>
-}
+</div>

@@ -75,4 +75,32 @@ describe('InterviewListComponent', () => {
 
     expect(component.interviewForm.invalid).toBeTrue();
   });
+
+  it('should have interviews grid', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    fixture.detectChanges();
+    const grid = compiled.querySelector('.interviews-grid');
+    expect(grid).toBeTruthy();
+  });
+
+  it('should have filter controls', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const filters = compiled.querySelector('.filters-card');
+    expect(filters).toBeTruthy();
+  });
+
+  it('should apply status filter', () => {
+    component.updateStatusFilter('Completed');
+    expect(component.statusFilter()).toBe('Completed');
+  });
+
+  it('should clear filters', () => {
+    component.updateStatusFilter('Completed');
+    component.updateCompanyFilter({ target: { value: 'Google' } } as Event);
+    component.clearFilters();
+
+    expect(component.statusFilter()).toBe('All');
+    expect(component.companyFilter()).toBe('');
+    expect(component.searchTerm()).toBe('');
+  });
 });

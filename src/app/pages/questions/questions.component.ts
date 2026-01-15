@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import { QuestionService } from '../../core/services/question.service';
 
 @Component({
   selector: 'app-questions',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatCardModule],
+  imports: [CommonModule, MatListModule, MatCardModule, MatIconModule],
   templateUrl: './questions.component.html',
   styleUrl: './questions.component.css',
 })

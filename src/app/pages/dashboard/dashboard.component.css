@@ -1,53 +1,87 @@
 /* Layout */
 .dashboard-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 40px 20px;
 }
 
 .error-card {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   background-color: #ffebee;
+  border-left: 4px solid #c62828;
 }
 
 .error-message {
   color: #c62828;
   margin: 0;
+  font-weight: 500;
+}
+
+/* Page Title */
+.dashboard-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0 0 40px 0;
+  font-weight: 600;
 }
 
 /* Summary Cards */
 .summary-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-bottom: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 50px;
 }
 
 .summary-card {
   text-align: center;
+  padding: 30px 20px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  background: linear-gradient(135deg, #f5f7ff 0%, #f8f9ff 100%) !important;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15) !important;
 }
 
 .summary-card h3 {
-  margin: 0;
-  font-weight: 500;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
 }
 
 .count {
-  font-size: 2.2rem;
-  font-weight: 600;
-  margin-top: 8px;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-top: 12px;
   margin-bottom: 0;
+  color: #667eea;
 }
 
 /* Main Content */
 .dashboard-content {
   display: grid;
-  grid-template-columns: 2fr 2fr;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
+}
+
+.content-card {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .content-card h2 {
   margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #667eea;
 }
 
 /* Interview List */
@@ -58,8 +92,9 @@
 }
 
 .interview-list li {
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
 }
 
 .interview-list li:last-child {
@@ -67,28 +102,59 @@
 }
 
 .muted {
-  color: #666;
+  color: #999;
   font-size: 0.9rem;
-}
-
-.mat-mdc-card {
-  padding: 15px;
+  margin-top: 4px;
 }
 
 .interview-list li.clickable {
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  padding: 12px;
-  border-radius: 4px;
+  transition: all 0.2s ease;
+  padding: 14px 12px;
+  border-radius: 6px;
+  margin: 0 -12px;
 }
 
 .interview-list li.clickable:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: #f8f9ff;
+  padding-left: 16px;
+}
+
+.interview-list li.clickable strong {
+  color: #667eea;
+  font-size: 1.1rem;
+}
+
+.interview-list li.clickable > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .dashboard-container {
+    padding: 30px 15px;
+  }
+
+  .dashboard-container h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
   .dashboard-content {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .count {
+    font-size: 2.2rem;
   }
 }

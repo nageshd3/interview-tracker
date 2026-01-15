@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Interview } from '../../../core/models/interview.model';
@@ -30,6 +31,7 @@ import { minLengthTrimmedValidator } from '../../../core/validators/min-length-t
     MatInputModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatIconModule,
   ],
   templateUrl: './interview-list.component.html',
   styleUrl: './interview-list.component.css',
