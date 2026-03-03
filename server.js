@@ -1,9 +1,10 @@
 // Server entry point that starts the Express application
 // The express app is imported from app.js and used to create an HTTP server
-// Start the server using: node server.js
+// nodemon is used to automatically restart the server on code changes, making development easier
+// Start the server using: nodemon server.js
 const app = require('./backend/app');
 const http = require('http');
-const debug = require('debug')('server');
+const debug = require('debug')('node-angular:server');
 
 /**
  * Normalize a port into a number, string, or false.
