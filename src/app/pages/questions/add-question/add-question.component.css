@@ -1,0 +1,103 @@
+.add-question-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.02) 0%, rgba(118, 75, 162, 0.02) 100%);
+}
+
+.add-question-card {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+}
+
+mat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin: -16px -16px 0 -16px;
+}
+
+.back-button {
+  color: white !important;
+  width: 40px;
+  height: 40px;
+}
+
+mat-card-header mat-card-title {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 600;
+  color: white;
+}
+
+mat-card-content {
+  padding: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+mat-form-field {
+  display: block;
+}
+
+textarea {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.form-actions button {
+  min-width: 150px;
+}
+
+.submit-spinner {
+  margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-question-container {
+    padding: 20px 10px;
+  }
+
+  mat-card-content {
+    padding: 20px;
+  }
+
+  mat-card-header {
+    padding: 16px;
+  }
+
+  mat-card-header mat-card-title {
+    font-size: 1.4rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

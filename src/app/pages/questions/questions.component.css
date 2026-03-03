@@ -61,13 +61,24 @@
   min-width: 0;
 }
 
-.qa-content h2 {
-  font-size: 2rem;
-  color: #333;
-  margin: 0 0 30px 0;
-  font-weight: 600;
+.qa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
   padding-bottom: 16px;
   border-bottom: 2px solid #667eea;
+}
+
+.qa-header h2 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.qa-header button {
+  white-space: nowrap;
 }
 
 .qa-cards-grid {

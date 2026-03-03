@@ -24,7 +24,13 @@
 
     <!-- Content -->
     <section class="qa-content">
-      <h2>{{ selectedCategory() }} Questions</h2>
+      <div class="qa-header">
+        <h2>{{ selectedCategory() }} Questions</h2>
+        <button mat-raised-button color="primary" (click)="navigateToAddQuestion()">
+          <mat-icon>add</mat-icon>
+          Add New Question
+        </button>
+      </div>
 
       @if (filteredQuestions().length) {
         <div class="qa-cards-grid">
