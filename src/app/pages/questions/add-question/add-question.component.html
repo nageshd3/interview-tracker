@@ -1,10 +1,10 @@
 <div class="add-question-container">
   <mat-card class="add-question-card">
-    <mat-card-header>
-      <button mat-icon-button class="back-button" (click)="onCancel()">
+    <mat-card-header class="header-content">
+      <button mat-icon-button class="back-button" (click)="onCancel()" title="Go back">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <mat-card-title>Add New Question</mat-card-title>
+      <h1 class="header-title">Add New Question</h1>
     </mat-card-header>
 
     <mat-card-content>
@@ -29,7 +29,7 @@
             matInput
             formControlName="question"
             placeholder="Enter the interview question"
-            rows="6"
+            rows="4"
           ></textarea>
           @if (isFieldInvalid('question')) {
             <mat-error>{{ getErrorMessage('question') }}</mat-error>
@@ -43,7 +43,7 @@
             matInput
             formControlName="answer"
             placeholder="Enter the expected answer"
-            rows="6"
+            rows="4"
           ></textarea>
           @if (isFieldInvalid('answer')) {
             <mat-error>{{ getErrorMessage('answer') }}</mat-error>
@@ -57,11 +57,12 @@
           </button>
           <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting()">
             @if (isSubmitting()) {
-              <mat-spinner diameter="20" class="submit-spinner"></mat-spinner>
-              Submitting...
+              <ng-container>
+                <mat-spinner diameter="20" class="submit-spinner"></mat-spinner>
+                Submitting...
+              </ng-container>
             } @else {
-              <mat-icon>add</mat-icon>
-              Create Question
+              <ng-container> Create Question </ng-container>
             }
           </button>
         </div>
